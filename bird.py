@@ -44,7 +44,8 @@ class Bird:
         top = row * self.image.h // SHEET_ROWS
         bottom = (row + 1) * self.image.h // SHEET_ROWS
         # 이미지의 위쪽 기준 행을 pico2d의 아래쪽 기준 좌표로 바꾼다.
-        self.image.clip_draw(
+        flip = 'h' if self.direction == -1 else ''
+        self.image.clip_composite_draw(
             left, self.image.h - bottom, right - left, bottom - top,
-            self.x, self.y, DRAW_WIDTH, DRAW_HEIGHT,
+            0.0, flip, self.x, self.y, DRAW_WIDTH, DRAW_HEIGHT,
         )
