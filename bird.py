@@ -1,5 +1,7 @@
 """새 한 마리의 상태와 그리기."""
 
+from settings import CANVAS_WIDTH
+
 DRAW_WIDTH = 110
 DRAW_HEIGHT = 101
 SHEET_COLUMNS = 5
@@ -10,13 +12,16 @@ ANIMATION_FPS = FRAME_COUNT / FLAP_CYCLE_SECONDS
 
 
 class Bird:
-    def __init__(self, image, x, y):
+    def __init__(self, image, x, y, speed=160.0, direction=1):
         self.image = image
         self.x = float(x)
         self.y = float(y)
         self.frame = 0.0
+        self.speed = speed
+        self.direction = direction
 
     def update(self, dt):
+        self.x += self.direction * self.speed * dt
         self.frame = (self.frame + ANIMATION_FPS * dt) % FRAME_COUNT
 
     def draw(self):
