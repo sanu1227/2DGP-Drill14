@@ -23,6 +23,7 @@ def main():
                     running = False
             if not running:
                 break
+            bird.update(1.0 / TARGET_FPS)
             clear_canvas()
             bird.draw()
             update_canvas()
