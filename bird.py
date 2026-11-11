@@ -15,11 +15,11 @@ TRAVEL_SPAN = RIGHT_BOUND - LEFT_BOUND
 
 
 class Bird:
-    def __init__(self, image, x, y, speed=160.0, direction=1):
+    def __init__(self, image, x, y, speed=160.0, direction=1, frame=0.0):
         self.image = image
         self.x = float(x)
         self.y = float(y)
-        self.frame = 0.0
+        self.frame = frame % FRAME_COUNT
         self.speed = speed
         self.direction = direction
         # 오른쪽 진행은 왕복 경로의 전반부, 왼쪽 진행은 후반부에 놓는다.
