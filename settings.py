@@ -1,0 +1,5 @@
+"""Drill14 화면 설정."""
+
+CANVAS_WIDTH = 1280
+CANVAS_HEIGHT = 720
+TARGET_FPS = 60
