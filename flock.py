@@ -1,5 +1,6 @@
 """10마리 새의 생성과 일괄 갱신."""
 
+from pathlib import Path
 from random import Random
 
 from pico2d import load_image
@@ -11,7 +12,8 @@ from settings import BIRD_COUNT
 class Flock:
     def __init__(self):
         # 같은 텍스처를 10마리가 공유하며 각 새의 상태는 독립적으로 보관한다.
-        self.image = load_image('bird_animation.png')
+        image_path = Path(__file__).resolve().with_name('bird_animation.png')
+        self.image = load_image(str(image_path))
         # 고정 시드로 다시 실행해도 같은 초기 새떼를 볼 수 있다.
         random = Random(14)
         self.birds = [

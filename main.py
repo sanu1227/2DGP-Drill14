@@ -13,6 +13,7 @@ from settings import CANVAS_HEIGHT, CANVAS_WIDTH, TARGET_FPS
 
 def main():
     open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
+    flock = None
     try:
         flock = Flock()
         previous_time = perf_counter()
@@ -37,6 +38,8 @@ def main():
             if remaining > 0:
                 delay(remaining)
     finally:
+        # SDL 렌더러를 닫기 전에 새들과 공유 텍스처 참조를 해제한다.
+        flock = None
         close_canvas()
 
 
