@@ -6,7 +6,7 @@ from random import Random
 from pico2d import load_image
 
 from bird import Bird, FRAME_COUNT
-from settings import BIRD_COUNT
+from settings import BIRD_COUNT, CANVAS_WIDTH
 
 
 class Flock:
@@ -19,8 +19,8 @@ class Flock:
         self.birds = [
             Bird(
                 self.image,
-                x=250 + (i // 5) * 600 + random.uniform(-70, 70),
-                y=90 + (i % 5) * 130 + (i // 5) * 35,
+                x=CANVAS_WIDTH * (0.25 + (i // 5) * 0.5) + random.uniform(-70, 70),
+                y=230 + (i % 5) * 70 + (i // 5) * 24,
                 speed=random.uniform(120, 200),
                 direction=1 if i % 2 == 0 else -1,
                 frame=random.uniform(0, FRAME_COUNT),

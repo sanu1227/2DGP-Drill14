@@ -1,4 +1,6 @@
 import time
+from pico2d import delay
+from settings import TARGET_FPS
 running = False
 stack = []
 
@@ -33,23 +35,26 @@ def quit():
 frame_time = 0.0
 
 def run(start_mode):
-    global running, stack
+    global running, stack, frame_time
     running = True
     stack = [start_mode]
 
     try:
         start_mode.init()
-        global frame_time
-        frame_time =0.0
-        current_time = time.time()
+        frame_time = 0.0
+        previous_time = time.perf_counter()
         while running:
+            frame_start = time.perf_counter()
+            frame_time = frame_start - previous_time
+            previous_time = frame_start
             stack[-1].handle_events()
+            if not running or not stack:
+                break
             stack[-1].update()
             stack[-1].render()
-            frame_time = time.time() - current_time
-            frame_rate = 1.0 / frame_time
-            current_time += frame_time
-            #print(f'Frame Time: {frame_time}, Frame Rate : {frame_rate}')
+            remaining = 1.0 / TARGET_FPS - (time.perf_counter() - frame_start)
+            if remaining > 0:
+                delay(remaining)
     finally:
         while stack:
             stack.pop().finish()
